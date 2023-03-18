@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
+        android:id="@+id/txtQuestion"
         android:text="Who is the player?"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="32sp"/>

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgCelebrity;
     int question = 0;
     Button option1, option2, option3, option4;
-    TextView tvScore;
+    TextView tvScore, tvQuestion;
     int score = 0;
     Question[] questions = new Question[5];
 
@@ -47,13 +47,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Initialize java variables with it's corresponding layout object
         imgCelebrity= findViewById(R.id.ivCelebrity);
         option1 = (Button)findViewById(R.id.option1);
         option2 = (Button)findViewById(R.id.option2);
         option3 = (Button)findViewById(R.id.option3);
         option4 = (Button)findViewById(R.id.option4);
+        // initialize text views
         tvScore = findViewById(R.id.txtScore);
         tvScore.setText(String.valueOf(score));
+        tvQuestion = findViewById(R.id.txtQuestion);
+        tvQuestion.setText("Question number " + String.valueOf(question+1));
 
         // Create Questions
         //
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillQA(int question){
+        tvQuestion.setText("Question number " + String.valueOf(question+1));
         setImage(questions[question].imageName);
         option1.setText(questions[0].answers[0].answerText);
         option2.setText(questions[0].answers[1].answerText);
