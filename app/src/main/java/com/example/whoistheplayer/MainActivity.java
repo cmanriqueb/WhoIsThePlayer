@@ -2,8 +2,10 @@ package com.example.whoistheplayer;
 
 import static java.sql.DriverManager.println;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Console;
 import java.util.Random;
@@ -70,36 +73,36 @@ public class MainActivity extends AppCompatActivity {
         Question q1 = new Question("cr7",q1answers);
         //
         // Question #2
-        Answer q2a1 = new Answer("Messi", false);
-        Answer q2a2 = new Answer("Cristiano Ronaldo", true);
-        Answer q2a3 = new Answer("Ronaldinho", false);
-        Answer q2a4 = new Answer("Xavi", false);
+        Answer q2a1 = new Answer("Bad Bunny", false);
+        Answer q2a2 = new Answer("John Secada", false);
+        Answer q2a3 = new Answer("Juan Luis Guerra", true);
+        Answer q2a4 = new Answer("Wilfrido Vargas", false);
         Answer[] q2answers = new Answer[]{q2a1,q2a2,q2a3,q2a4};
-        Question q2 = new Question("cr7",q2answers);
+        Question q2 = new Question("juanluisguerra",q2answers);
         //
         // Question #3
-        Answer q3a1 = new Answer("Messi", false);
-        Answer q3a2 = new Answer("Cristiano Ronaldo", true);
-        Answer q3a3 = new Answer("Ronaldinho", false);
-        Answer q3a4 = new Answer("Xavi", false);
+        Answer q3a1 = new Answer("Mila Kunis", true);
+        Answer q3a2 = new Answer("Ariana Grande ", false);
+        Answer q3a3 = new Answer("Selena Gomez", false);
+        Answer q3a4 = new Answer("Emma Watson", false);
         Answer[] q3answers = new Answer[]{q3a1,q3a2,q3a3,q3a4};
-        Question q3 = new Question("cr7",q3answers);
+        Question q3 = new Question("milakunis",q3answers);
         //
         // Question #4
-        Answer q4a1 = new Answer("Messi", false);
-        Answer q4a2 = new Answer("Cristiano Ronaldo", true);
-        Answer q4a3 = new Answer("Ronaldinho", false);
-        Answer q4a4 = new Answer("Xavi", false);
+        Answer q4a1 = new Answer("Paolo Sorrentino", false);
+        Answer q4a2 = new Answer("Will Smith", false);
+        Answer q4a3 = new Answer("Antonio Banderas", false);
+        Answer q4a4 = new Answer("Pedro Almodóvar", true);
         Answer[] q4answers = new Answer[]{q4a1,q4a2,q4a3,q4a4};
-        Question q4 = new Question("cr7",q4answers);
+        Question q4 = new Question("pedroalmodovar",q4answers);
         //
         // Question #5
-        Answer q5a1 = new Answer("Messi", false);
-        Answer q5a2 = new Answer("Cristiano Ronaldo", true);
-        Answer q5a3 = new Answer("Ronaldinho", false);
-        Answer q5a4 = new Answer("Xavi", false);
+        Answer q5a1 = new Answer("Quentin Tarantino", false);
+        Answer q5a2 = new Answer("Bong Joon-ho", true);
+        Answer q5a3 = new Answer("Ryusuke Hamaguchi", false);
+        Answer q5a4 = new Answer("Noah Baumbach", false);
         Answer[] q5answers = new Answer[]{q5a1,q5a2,q5a3,q5a4};
-        Question q5 = new Question("cr7",q5answers);
+        Question q5 = new Question("bongjoonho",q5answers);
         //
         //
         // add questions to array
@@ -131,10 +134,10 @@ public class MainActivity extends AppCompatActivity {
     private void fillQA(int question){
         tvQuestion.setText("Question number " + String.valueOf(question+1));
         setImage(questions[question].imageName);
-        option1.setText(questions[0].answers[0].answerText);
-        option2.setText(questions[0].answers[1].answerText);
-        option3.setText(questions[0].answers[2].answerText);
-        option4.setText(questions[0].answers[3].answerText);
+        option1.setText(questions[question].answers[0].answerText);
+        option2.setText(questions[question].answers[1].answerText);
+        option3.setText(questions[question].answers[2].answerText);
+        option4.setText(questions[question].answers[3].answerText);
     }
 
 
@@ -160,5 +163,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void finishGame() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                //set icon
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                //set title
+                .setTitle("Game finished")
+                //set message
+                .setMessage("Do you want to play again?")
+                //set positive button
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //set what would happen when positive button is clicked
+                        restartGame();
+                        Toast.makeText(getApplicationContext(),"Let's go!",Toast.LENGTH_LONG).show();
+                    }
+                })
+                //set negative button
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //set what should happen when negative button is clicked
+                        finish();
+                    }
+                })
+                .show();
+    }
+
+    private void restartGame() {
+        score = 0;
+        question = 0;
+        tvQuestion.setText("Question number " + String.valueOf(question+1));
+        fillQA(question);
+        tvScore.setText(String.valueOf(score));
     }
 }

@@ -30,22 +30,22 @@
         android:id="@+id/option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="clickOption" />
+        android:onClick="clickOption"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/option2"
-        android:onClick="clickOption"/>
+        android:onClick="clickOption"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
         android:id="@+id/option3"
-        android:onClick="clickOption"/>
+        android:onClick="clickOption"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/option4"
