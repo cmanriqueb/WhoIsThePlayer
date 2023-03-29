@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     int score = 0;
     Question[] questions = new Question[5];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +57,13 @@ public class MainActivity extends AppCompatActivity {
         // Initialize java variables with it's corresponding layout object
         imgCelebrity= findViewById(R.id.ivCelebrity);
         option1 = (Button)findViewById(R.id.option1);
+        option1.setBackgroundResource(android.R.drawable.btn_default);
         option2 = (Button)findViewById(R.id.option2);
+        option2.setBackgroundResource(android.R.drawable.btn_default);
         option3 = (Button)findViewById(R.id.option3);
+        option3.setBackgroundResource(android.R.drawable.btn_default);
         option4 = (Button)findViewById(R.id.option4);
+        option4.setBackgroundResource(android.R.drawable.btn_default);
         // initialize text views
         tvScore = findViewById(R.id.txtScore);
         tvScore.setText(String.valueOf(score));
@@ -120,8 +128,29 @@ public class MainActivity extends AppCompatActivity {
     public void clickOption(View view) {
         String answer = ((Button)view).getText().toString();
         if(isCorrectAnswer(question, answer)){
+            Toast toast = Toast.makeText(getApplicationContext(),"CORRECT!!",Toast.LENGTH_SHORT);
+            toast.getView().setBackgroundColor(Color.parseColor("#00FF00"));
+            toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 500);
             score ++;
             tvScore.setText(String.valueOf(score));
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(),"INCORRECT!!",Toast.LENGTH_SHORT);
+            toast.getView().setBackgroundColor(Color.parseColor("#FF0000"));
+            toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 500);
         }
         question++;
         if (question > questions.length -1) {
@@ -134,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
     private void fillQA(int question){
         tvQuestion.setText("Question number " + String.valueOf(question+1));
         setImage(questions[question].imageName);
+        //option1.setBackground(defaultButtonBackground);
         option1.setText(questions[question].answers[0].answerText);
         option2.setText(questions[question].answers[1].answerText);
         option3.setText(questions[question].answers[2].answerText);
