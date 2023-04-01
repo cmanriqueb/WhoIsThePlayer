@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,17 +8,33 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
+    <!-- Celebrity Image View -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal"
-        android:id="@+id/txtQuestion"
-        android:text="Who is the player?"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="32sp"/>
+        android:orientation="horizontal">
 
-    <!-- Celebrity Image View -->
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:text="Who is the player?"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="32sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/question1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:onClick="goToHowToPlay"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/ivCelebrity"
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -226,5 +227,10 @@ public class MainActivity extends AppCompatActivity {
         tvQuestion.setText("Question number " + String.valueOf(question+1));
         fillQA(question);
         tvScore.setText(String.valueOf(score));
+    }
+
+    public void goToHowToPlay(View view){
+        Intent intent = new Intent(this, HowToPlay.class);
+        startActivity(intent);
     }
 }
