@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
     Button option1, option2, option3, option4;
     TextView tvScore, tvQuestion;
     int score = 0;
-    Question[] questions = new Question[5];
+    int consecutiveGuessedToWin = 3;
+    int consecutiveGuessed = 0;
+    Question[] questions = new Question[8];
 
 
     @Override
@@ -113,6 +115,30 @@ public class MainActivity extends AppCompatActivity {
         Answer[] q5answers = new Answer[]{q5a1,q5a2,q5a3,q5a4};
         Question q5 = new Question("bongjoonho",q5answers);
         //
+        // Question #6
+        Answer q6a1 = new Answer("Pedro Pascal", true);
+        Answer q6a2 = new Answer("David Coperfield ", false);
+        Answer q6a3 = new Answer("Luke Skywalker", false);
+        Answer q6a4 = new Answer("Luis Enrique", false);
+        Answer[] q6answers = new Answer[]{q6a1,q6a2,q6a3,q6a4};
+        Question q6 = new Question("pedropascal",q6answers);
+        //
+        // Question #7
+        Answer q7a1 = new Answer("Adele", false);
+        Answer q7a2 = new Answer("Madona", false);
+        Answer q7a3 = new Answer("Avril Lavigne", false);
+        Answer q7a4 = new Answer("Rihana", true);
+        Answer[] q7answers = new Answer[]{q7a1,q7a2,q7a3,q7a4};
+        Question q7 = new Question("rihana",q7answers);
+        //
+        // Question #8
+        Answer q8a1 = new Answer("Alfred", false);
+        Answer q8a2 = new Answer("Michael Caine", true);
+        Answer q8a3 = new Answer("Bruce Willis", false);
+        Answer q8a4 = new Answer("Michael Douglas", false);
+        Answer[] q8answers = new Answer[]{q8a1,q8a2,q8a3,q8a4};
+        Question q8 = new Question("michaelcaine",q8answers);
+        //
         //
         // add questions to array
         questions[0] = q1;
@@ -120,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
         questions[2] = q3;
         questions[3] = q4;
         questions[4] = q5;
+        questions[5] = q6;
+        questions[6] = q7;
+        questions[7] = q8;
         // finish creating questions
 
         // Start game with first question
@@ -140,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 500);
             score ++;
+            consecutiveGuessed++;
             tvScore.setText(String.valueOf(score));
         }else{
             Toast toast = Toast.makeText(getApplicationContext(),"INCORRECT!!",Toast.LENGTH_SHORT);
@@ -152,9 +182,10 @@ public class MainActivity extends AppCompatActivity {
                     toast.cancel();
                 }
             }, 500);
+            consecutiveGuessed=0;
         }
         question++;
-        if (question > questions.length -1) {
+        if (question > questions.length -1 || consecutiveGuessed == consecutiveGuessedToWin) {
             finishGame();
         } else {
             fillQA(question);
@@ -194,11 +225,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void finishGame() {
+        String alertMessage;
+        if (score == consecutiveGuessedToWin)
+        {
+            alertMessage = "CONGRATULATIONS!!";
+        }else{
+            alertMessage = "No luck this time... ";
+        }
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 //set icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 //set title
-                .setTitle("Game finished")
+                .setTitle(alertMessage)
                 //set message
                 .setMessage("Do you want to play again?")
                 //set positive button
@@ -224,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
     private void restartGame() {
         score = 0;
         question = 0;
+        consecutiveGuessed = 0;
         tvQuestion.setText("Question number " + String.valueOf(question+1));
         fillQA(question);
         tvScore.setText(String.valueOf(score));
